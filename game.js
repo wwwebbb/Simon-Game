@@ -1,12 +1,12 @@
 var userClickedPattern = [];
 var gamePattern = [];
 var buttonColors = ["red", "blue", "green", "yellow"];
-var level = 0;
+var level = 1;
 var started = false;
 
 $(document).keydown(function () {
   if (!started) {
-    $("h1").text("Level " + level);
+    $("h1").text(`Level ${level}`);
     nextSequence();
     started = true;
   }
@@ -16,17 +16,14 @@ $(document).keydown(function () {
 function nextSequence() {
   //Reset userClickedPattern and update the level
   userClickedPattern = [];
-  level++;
-  $("h1").text("Level " + level);
+  $("h1").text(`Level ${level++}`);
 
   //Uses 0-3 value to determine color from 'buttonColors' array to push into "gamePattern" array
   var randomChosenColor = buttonColors[Math.round(Math.random() * 3)];
   gamePattern.push(randomChosenColor);
 
   //Animate randomly chosen color using jQuery
-  $("#" + randomChosenColor)
-    .fadeOut(100)
-    .fadeIn(100);
+  $(`#${randomChosenColor}`).fadeOut(100).fadeIn(100);
   playSound(randomChosenColor);
 }
 
@@ -42,18 +39,16 @@ $(".btn").click(function () {
 //Check answer function
 function checkAnswer(currentLevel) {
   if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
-    console.log("Success");
     if (userClickedPattern.length === gamePattern.length) {
-      setTimeout(function () {
+      setTimeout(() => {
         nextSequence();
       }, 1000);
     }
     //Game over
   } else {
-    console.log("Failure");
     new Audio("sounds/wrong.mp3").play();
     $("body").addClass("game-over");
-    setTimeout(function () {
+    setTimeout(() => {
       $("body").removeClass("game-over");
     }, 200);
     $("h1").text("Game Over, Press Any Key to Restart");
@@ -63,22 +58,20 @@ function checkAnswer(currentLevel) {
 
 //Sound Function
 function playSound(name) {
-  new Audio("sounds/" + name + ".mp3").play();
+  new Audio(`sounds/${name}.mp3`).play();
 }
 
 //Animation Function
 function animatePress(currentColor) {
-  $("." + currentColor).addClass("pressed"); //No period "." used to add the "pressed" class
-  setTimeout(function () {
-    $("." + currentColor).removeClass("pressed");
+  $(`.${currentColor}`).addClass("pressed");
+  setTimeout(() => {
+    $(`.${currentColor}`).removeClass("pressed");
   }, 100);
 }
-//
-console.log(userClickedPattern);
 
 //Game reset function
 function startOver() {
-  level = 0;
+  level = 1;
   started = false;
   gamePattern = [];
 }
