@@ -4,7 +4,7 @@ var buttonColors = ["red", "blue", "green", "yellow"];
 var level = 1;
 var started = false;
 
-$(document).keydown(function () {
+$(document).keydown(() => {
   if (!started) {
     $("h1").text(`Level ${level}`);
     nextSequence();
@@ -31,14 +31,14 @@ function nextSequence() {
 $(".btn").click(function () {
   var userChosenColor = this.id;
   userClickedPattern.push(userChosenColor);
-  checkAnswer(userClickedPattern.length - 1);
-  playSound(userChosenColor);
+  checkAnswer(userClickedPattern.length - 1, userChosenColor);
   animatePress(userChosenColor);
 });
 
 //Check answer function
-function checkAnswer(currentLevel) {
+function checkAnswer(currentLevel, clickColor) {
   if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+    playSound(clickColor);
     if (userClickedPattern.length === gamePattern.length) {
       setTimeout(() => {
         nextSequence();
