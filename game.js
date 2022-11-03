@@ -6,7 +6,7 @@ var started = false;
 
 $(document).keydown(() => {
   if (!started) {
-    $("h1").text(`Level ${level}`);
+    $("h1").text(`Level ${level}`).removeClass("text-animation");
     nextSequence();
     started = true;
   }
@@ -51,7 +51,9 @@ function checkAnswer(currentLevel, clickColor) {
     setTimeout(() => {
       $("body").removeClass("game-over");
     }, 200);
-    $("h1").text("Game Over, Press Any Key to Restart");
+    $("h1")
+      .text("Game Over, Press Any Key to Restart")
+      .addClass("text-animation");
     startOver();
   }
 }

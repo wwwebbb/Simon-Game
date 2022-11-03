@@ -4,8 +4,9 @@ body {
 }
 
 #level-title {
-  font-family: "Press Start 2P", cursive;
-  font-size: 3rem;
+  font-family: "Bebas Neue", cursive;
+  font-size: 4.5rem;
+  letter-spacing: 0.5rem;
   margin: 5%;
   color: #fef2bf;
 }
@@ -56,4 +57,20 @@ body {
 .pressed {
   box-shadow: 0 0 20px white;
   background-color: grey;
+}
+
+.text-animation {
+  animation: text-animation 0.5s infinite alternate both;
+}
+
+@keyframes text-animation {
+  from {
+    transform: scale(1.01);
+  }
+}
+
+@media (prefers-reduced-motion) {
+  .text-animation {
+    animation: none;
+  }
 }
